@@ -10,5 +10,10 @@ namespace food411203348.Data
         }
 
         public DbSet<FoodItem> FoodItems { get; set; }
+
+        // ==========================================
+        // 新增這行：把 Category 註冊進實體資料庫中
+        // ==========================================
+        public DbSet<Category> Categories { get; set; }
     }
 }

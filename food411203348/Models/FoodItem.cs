@@ -1,18 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation; // 💡 1. 記得在最上面新增這一行！
 
-namespace food411203348.Models // 記得把「你的專案名稱」改成你實際的專案名稱
+namespace food411203348.Models
 {
     public class FoodItem
     {
-        [Key] // 設定為主鍵
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "食物名稱必填")]
         [Display(Name = "食物名稱")]
         public string Name { get; set; }
 
-        [Display(Name = "食物種類")] // 例如：主食、甜點、飲料
-        public string Category { get; set; }
+        [Display(Name = "分類編號")]
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        [Display(Name = "食物種類")]
+        [ValidateNever] // 💡 2. 新增這一行：告訴系統新增資料時，不要去驗證這個關聯物件！
+        public Category Category { get; set; }
 
         [Display(Name = "價格 (元)")]
         public int Price { get; set; }
